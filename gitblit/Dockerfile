@@ -14,9 +14,5 @@ RUN chmod +x /workspace/*.sh
 RUN /workspace/setup.sh
 
 WORKDIR /opt/gitblit
-EXPOSE 80
-EXPOSE 443
-EXPOSE 9418
-EXPOSE 29418
 
 CMD /workspace/start.sh
