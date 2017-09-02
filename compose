@@ -16,6 +16,7 @@ ENV_ARGS="${@}"
 make_venv() {
   if [[ ! -d "${VENV}" ]]; then
     virtualenv --python=${PYTHON} --system-site-packages ${VENV}
+    ${VENV_BIN}/pip install --upgrade pip
     if [[ -e requirements.txt ]]; then
       ${VENV_BIN}/pip install -r requirements.txt
     fi
