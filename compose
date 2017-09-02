@@ -11,7 +11,7 @@ ENV_CMD=${1}
 shift
 ENV_NAME=${1}
 shift
-ENV_ARGS="${@}"
+ENV_ARGS=("${@}")
 
 make_venv() {
   if [[ ! -d "${VENV}" ]]; then
@@ -32,10 +32,10 @@ case ${ENV_CMD} in
     make_venv
     if [[ -d "${ENV_NAME}" ]]; then
       pushd "${ENV_NAME}"
-      if [[ -z "${ENV_ARGS}" ]]; then
+      if [[ "${#ENV_ARGS[@]}" = 0 ]]; then
         ${VENV_BIN}/docker-compose ${ENV_CMD}
       else
-        ${VENV_BIN}/docker-compose ${ENV_CMD} "${ENV_ARGS}"
+        ${VENV_BIN}/docker-compose ${ENV_CMD} "${ENV_ARGS[@]}"
       fi
       popd
     fi
