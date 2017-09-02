@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -o xtrace
+set -o errexit
+
+VENV=${VENV:-.venv}
+VENV_BIN=$(readlink -m "${VENV}/bin")
+PYTHON=python3
+
+ENV_CMD=${1}
+shift
+ENV_NAME=${1}
+shift
+ENV_ARGS="${@}"
+
+make_venv() {
+  if [[ ! -d "${VENV}" ]]; then
+    virtualenv --python=${PYTHON} --system-site-packages ${VENV}
+    if [[ -e requirements.txt ]]; then
+      ${VENV_BIN}/pip install -r requirements.txt
+    fi
+  fi
+}
+
+case ${ENV_CMD} in
+  'help')
+  ;;
+  'auto')
+  ;;
+  *)
+    make_venv
+    if [[ -d "${ENV_NAME}" ]]; then
+      pushd "${ENV_NAME}"
+      if [[ -z "${ENV_ARGS}" ]]; then
+        ${VENV_BIN}/docker-compose ${ENV_CMD}
+      else
+        ${VENV_BIN}/docker-compose ${ENV_CMD} "${ENV_ARGS}"
+      fi
+      popd
+    fi
+  ;;
+esac
+
