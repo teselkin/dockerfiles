@@ -9,5 +9,5 @@ services:
       - "9418:9418"
       - "29418:29418"
     volumes:
-      - /data/docker/gitblit/data:/opt/gitblit-data
+      - /data/docker/gitblit/data:/opt/gitblit-data:Z
 
