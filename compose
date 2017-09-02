@@ -5,7 +5,7 @@ set -o errexit
 
 VENV=${VENV:-.venv}
 VENV_BIN=$(readlink -m "${VENV}/bin")
-PYTHON=python3
+PYTHON=${PYTHON:-python3}
 
 ENV_CMD=${1}
 shift
