@@ -8,4 +8,6 @@ services:
       - "443:443"
       - "9418:9418"
       - "29418:29418"
+    volumes:
+      - /data/docker/gitblit:/opt/gitblit/data
 
